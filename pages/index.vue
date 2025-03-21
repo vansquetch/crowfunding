@@ -11,6 +11,7 @@
 	definePageMeta({
 		layout: 'default',
 	})
+	usePage().setBreadcumbItems([{ title: 'dashboard', href: '#' }], 'Proyectos')
 </script>
 
 <template>

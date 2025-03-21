@@ -1,5 +1,4 @@
 <script setup lang="ts">
-	import type { Project } from '~/types/projectTypes'
 	import NavMain from './NavMain.vue'
 	import NavUser from './NavUser.vue'
 	import ProjectSwitcher from './ProjectSwitcher.vue'
@@ -21,7 +20,7 @@
 	const route = useRoute()
 	console.log(route.params.project)
 	const { data: project, execute } = await useAsyncData(
-		`project-${route.params.project}`,
+		`project-data`,
 		async () => {
 			if (!route.params.project) return null
 			const { data } = await getProject((route.params.project ?? '') as string)

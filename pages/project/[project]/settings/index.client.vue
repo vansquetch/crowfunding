@@ -3,9 +3,7 @@
 	import { Cop } from '~/util/functions'
 
 	const route = useRoute()
-	const { data: project } = useNuxtData<Project>(
-		`project-${route.params.project}`
-	)
+	const { data: project } = useNuxtData<Project>(`project-data`)
 	const updateProject = async (data) => {
 		return new Promise((resolve) => {
 			setTimeout(() => {

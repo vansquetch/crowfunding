@@ -2,14 +2,13 @@
 	import type { Project } from '~/types/projectTypes'
 
 	const route = useRoute()
-	const { data: project } = useNuxtData<Project>(
-		`project-${route.params.project}`
-	)
-
-	usePage().setBreadcumbItems(
-		[{ title: 'dashboard', href: '#' }],
-		'General de ' + project.value?.name
-	)
+	const { data: project } = useNuxtData<Project>(`project-data`)
+	watch(project, () => {
+		usePage().setBreadcumbItems(
+			[{ title: 'dashboard', href: '#' }],
+			'General de ' + project.value?.name
+		)
+	})
 </script>
 
 <template>
