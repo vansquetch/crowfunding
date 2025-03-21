@@ -11,8 +11,12 @@
 		"supabase:types": "supabase gen types typescript --project-id wyedudaypfytxeqlaeaf --schema public > types/database.types.ts"
 	},
 	"dependencies": {
+		"@formkit/core": "^1.6.9",
+		"@formkit/nuxt": "^1.6.9",
+		"@formkit/vue": "^1.6.9",
 		"@nuxtjs/supabase": "1.5.0",
 		"@pinia/nuxt": "^0.10.1",
+		"@supabase/supabase-js": "^2.49.1",
 		"@unovis/ts": "^1.5.1",
 		"@unovis/vue": "^1.5.1",
 		"@vueuse/core": "^12.8.2",

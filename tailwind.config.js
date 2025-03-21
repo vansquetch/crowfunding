@@ -4,6 +4,7 @@ export default {
 	darkMode: ['class'],
 	content: ['./pages/**/*.{js,ts,vue}', './components/**/*.{js,ts,vue}'],
 	theme: {
+		darkMode: ['selector', '[data-theme="dark"]'],
 		extend: {
 			borderRadius: {
 				lg: 'var(--radius)',

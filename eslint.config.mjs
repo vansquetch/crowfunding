@@ -18,12 +18,15 @@ export default withNuxt(
 			'@stylistic/indent': 'off',
 			'@stylistic/comma-dangle': 'off',
 			'@stylistic/arrow-parens': 'off',
+			'@stylistic/operator-linebreak': 'off',
 
 			'vue/singleline-html-element-content-newline': 'off',
 			'vue/html-indent': 'off',
 			'vue/multi-word-component-names': 'off',
 			'vue/html-self-closing': 'off',
 			'vue/max-attributes-per-line': 'off',
+			'vue/comma-dangle': 'off',
+			'vue/operator-linebreak': 'off',
 
 			'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
 			'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

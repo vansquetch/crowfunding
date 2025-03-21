@@ -15,10 +15,8 @@
 		SidebarTrigger,
 	} from '~/components/ui/sidebar'
 	import { Skeleton } from '~/components/ui/skeleton'
-	import { usePageStore } from '~/stores/pageStore'
 
-	let pageStore = null
-	pageStore = usePageStore()
+	const page = usePage()
 </script>
 
 <template>
@@ -40,9 +38,9 @@
 								</div>
 							</template>
 							<Breadcrumb>
-								<BreadcrumbList v-if="pageStore.breadcrumbItems">
+								<BreadcrumbList v-if="page.breadcrumbItems.value">
 									<template
-										v-for="item in pageStore.breadcrumbItems.subItems"
+										v-for="item in page.breadcrumbItems.value.subItems"
 										:key="item.title"
 									>
 										<BreadcrumbItem class="hidden md:block">
@@ -54,7 +52,7 @@
 									</template>
 									<BreadcrumbItem>
 										<BreadcrumbPage>
-											{{ pageStore.breadcrumbItems.page }}
+											{{ page.breadcrumbItems.value.page }}
 										</BreadcrumbPage>
 									</BreadcrumbItem>
 								</BreadcrumbList>

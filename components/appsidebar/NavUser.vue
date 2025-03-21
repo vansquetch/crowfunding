@@ -17,13 +17,11 @@
 		useSidebar,
 	} from '@/components/ui/sidebar'
 
-	const props = defineProps<{
-		user: {
-			name: string
-			email: string
-			avatar: string | null
-		}
-	}>()
+	const user = {
+		name: 'Santiago Marchena',
+		email: 'vansquetch@gmail.com',
+		avatar: null,
+	}
 
 	const { isMobile } = useSidebar()
 
@@ -58,7 +56,7 @@
 				<DropdownMenuContent
 					class="w-[--reka-dropdown-menu-trigger-width] min-w-56 rounded-lg"
 					:side="isMobile ? 'bottom' : 'right'"
-					align="end"
+					:align="'end'"
 					:side-offset="4"
 				>
 					<DropdownMenuLabel class="p-0 font-normal">

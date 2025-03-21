@@ -28,60 +28,37 @@ export type Database = {
           name?: string
           selected_project?: number
         }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_selected_project_fkey"
-            columns: ["selected_project"]
-            isOneToOne: false
-            referencedRelation: "projects"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       projects: {
         Row: {
           actions: number
-          admin: number
           config: Json
-          construction: number
-          id: number
+          id: string
           invertions: number
-          month_expected_rent: Json
-          month_fractions: number
+          margin: Json
           name: string
-          reservations: number
-          unit_value: Json
-          units: number
+          products: Json[]
           value: number
         }
         Insert: {
           actions: number
-          admin: number
           config?: Json
-          construction: number
-          id?: never
-          invertions: number
-          month_expected_rent?: Json
-          month_fractions: number
+          id?: string
+          invertions?: number
+          margin?: Json
           name: string
-          reservations: number
-          unit_value?: Json
-          units: number
+          products?: Json[]
           value: number
         }
         Update: {
           actions?: number
-          admin?: number
           config?: Json
-          construction?: number
-          id?: never
+          id?: string
           invertions?: number
-          month_expected_rent?: Json
-          month_fractions?: number
+          margin?: Json
           name?: string
-          reservations?: number
-          unit_value?: Json
-          units?: number
+          products?: Json[]
           value?: number
         }
         Relationships: []
@@ -92,27 +69,24 @@ export type Database = {
           created_at: string
           id: number
           profile_id: string
-          project_id: number
+          project_id: string
           relation: Database["public"]["Enums"]["project_relation"]
-          reservations: number
         }
         Insert: {
           actions?: number
           created_at?: string
           id?: number
           profile_id: string
-          project_id: number
+          project_id: string
           relation?: Database["public"]["Enums"]["project_relation"]
-          reservations?: number
         }
         Update: {
           actions?: number
           created_at?: string
           id?: number
           profile_id?: string
-          project_id?: number
+          project_id?: string
           relation?: Database["public"]["Enums"]["project_relation"]
-          reservations?: number
         }
         Relationships: [
           {

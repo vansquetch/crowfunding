@@ -5,7 +5,7 @@
 	})
 </script>
 
-<template>
+<template class="dark">
 	<NuxtLoadingIndicator />
 	<NuxtLayout>
 		<NuxtPage />

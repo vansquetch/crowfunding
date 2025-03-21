@@ -1,4 +1,8 @@
 <script setup lang="ts">
+	import {
+		Settings2,
+		SquareTerminal,
+	} from 'lucide-vue-next'
 	import { ChevronRight, type LucideIcon } from 'lucide-vue-next'
 	import {
 		Collapsible,
@@ -16,18 +20,45 @@
 		SidebarMenuSubItem,
 	} from '@/components/ui/sidebar'
 
-	defineProps<{
-		items: {
+	const route = useRoute()
+	const items: {
+		title: string
+		url: string
+		icon?: LucideIcon
+		isActive?: boolean
+		items?: {
 			title: string
 			url: string
-			icon?: LucideIcon
-			isActive?: boolean
-			items?: {
-				title: string
-				url: string
-			}[]
 		}[]
-	}>()
+	}[] = [
+		{
+			title: 'Dashboard',
+			url: 'dashboard',
+			icon: SquareTerminal,
+			isActive: true,
+			items: [
+				{
+					title: 'General',
+					url: '/project/' + route.params.project,
+				},
+				{
+					title: 'Inversores',
+					url: '#',
+				},
+			],
+		},
+		{
+			title: 'Configuración',
+			url: '#',
+			icon: Settings2,
+			items: [
+				{
+					title: 'Proyecto',
+					url: '/project/' + route.params.project + '/settings',
+				},
+			],
+		},
+	]
 </script>
 
 <template>

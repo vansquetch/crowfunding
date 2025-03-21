@@ -1,15 +1,9 @@
 <script setup lang="ts">
-	import {
-		GalleryVerticalEnd,
-		Settings2,
-		SquareTerminal,
-	} from 'lucide-vue-next'
-
+	import type { Project } from '~/types/projectTypes'
 	import NavMain from './NavMain.vue'
 	import NavUser from './NavUser.vue'
 	import ProjectSwitcher from './ProjectSwitcher.vue'
 	import type { SidebarProps } from '~/components/ui/sidebar'
-	import type { Database } from '~/types/database.types'
 
 	import {
 		Sidebar,
@@ -23,69 +17,32 @@
 		collapsible: 'icon',
 	})
 
-	const supabase = useSupabaseClient<Database>()
-	const user = useSupabaseUser()
-	const { data: projects } = await useAsyncData(async () => {
-		const { data } = await supabase
-			.from('projects_profiles')
-			.select('relation, projects(name,id)')
-			.eq('profile_id', user.value?.id ?? '')
-		return data
+	const { getProject } = useProjects()
+	const route = useRoute()
+	console.log(route.params.project)
+	const { data: project, execute } = await useAsyncData(
+		`project-${route.params.project}`,
+		async () => {
+			if (!route.params.project) return null
+			const { data } = await getProject((route.params.project ?? '') as string)
+			return data
+		}
+	)
+	watch(route, async () => {
+		execute()
 	})
-	// This is sample data.
-	const data = {
-		user: {
-			name: 'Santiago Marchena',
-			email: 'vansquetch@gmail.com',
-			avatar: null,
-		},
-		projects: projects.value?.map(({ relation, projects }) => ({
-			relation,
-			name: projects.name,
-			id: projects.id,
-		})),
-		navMain: [
-			{
-				title: 'Dashboard',
-				url: 'dashboard',
-				icon: SquareTerminal,
-				isActive: true,
-				items: [
-					{
-						title: 'General',
-						url: 'dashboard',
-					},
-					{
-						title: 'Inversores',
-						url: '#',
-					},
-				],
-			},
-			{
-				title: 'Configuración',
-				url: '#',
-				icon: Settings2,
-				items: [
-					{
-						title: 'Proyecto',
-						url: '#',
-					},
-				],
-			},
-		],
-	}
 </script>
 
 <template>
 	<Sidebar v-bind="props" variant="inset">
-		<SidebarHeader v-if="data.projects">
-			<ProjectSwitcher :projects="data.projects" />
+		<SidebarHeader>
+			<ProjectSwitcher v-if="project" :project="project" />
 		</SidebarHeader>
 		<SidebarContent>
-			<NavMain :items="data.navMain" />
+			<NavMain v-if="project" />
 		</SidebarContent>
 		<SidebarFooter>
-			<NavUser :user="data.user" />
+			<NavUser />
 		</SidebarFooter>
 		<SidebarRail />
 	</Sidebar>

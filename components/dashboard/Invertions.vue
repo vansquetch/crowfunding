@@ -4,7 +4,6 @@
 	const props = defineProps<{
 		invertions: number
 		actions: number
-		reservations: number
 	}>()
 
 	const dataChart = [
@@ -12,13 +11,10 @@
 			name: 'Acciones compradas',
 			total: props.invertions,
 		},
-		{
-			name: 'Acciones reservadas',
-			total: props.reservations,
-		},
+
 		{
 			name: 'Acciones disponibles',
-			total: props.actions - props.invertions - props.reservations,
+			total: props.actions - props.invertions,
 		},
 	]
 </script>
@@ -37,18 +33,12 @@
 				</h4>
 				{{ props.invertions }}
 			</div>
-			<div>
-				<h4 class="mb-2 border-b-2 border-yellow-600 py-2 font-bold">
-					Reservado
-				</h4>
-				{{ props.reservations }}
-			</div>
 		</div>
 		<DonutChart
 			index="name"
 			:category="'total'"
 			:data="dataChart"
-			:colors="['green', 'orange', 'blue']"
+			:colors="['#32b967', '#32b3b9']"
 		/>
 	</div>
 </template>

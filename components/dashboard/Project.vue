@@ -12,24 +12,13 @@
 				Proyecto: {{ data.name }}
 			</h3>
 			<div
-				class="grid grid-cols-3 items-center justify-start gap-2 divide-x text-center"
+				class="grid items-center justify-center gap-2 divide-x text-center md:grid-cols-3"
 			>
 				<div class="p-4">
 					<h4 class="mb-2 border-b py-2 font-bold">Valor proyecto</h4>
 					<p class="text-2xl">{{ Cop.format(data.value) }}</p>
 				</div>
-				<div class="p-4">
-					<h4 class="mb-2 border-b py-2 font-bold">Administración</h4>
-					<p class="text-2xl">{{ Cop.format(data.admin) }}</p>
-				</div>
-				<div class="p-4">
-					<h4 class="mb-2 border-b py-2 font-bold">Construcción</h4>
-					<p class="text-2xl">{{ Cop.format(data.construction) }}</p>
-				</div>
-				<div class="p-4">
-					<h4 class="mb-2 border-b py-2 font-bold">Unidades</h4>
-					<p class="text-2xl">{{ data.units }}</p>
-				</div>
+
 				<div class="p-4">
 					<h4 class="mb-2 border-b py-2 font-bold">Acciones</h4>
 					<p class="text-2xl">{{ data.actions }}</p>

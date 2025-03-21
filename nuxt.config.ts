@@ -6,6 +6,7 @@ export default defineNuxtConfig({
 		'@nuxtjs/tailwindcss',
 		'@pinia/nuxt',
 		'@nuxtjs/supabase',
+		'@formkit/nuxt',
 	],
 	devtools: { enabled: true },
 	css: ['~/assets/css/main.css'],
@@ -16,7 +17,11 @@ export default defineNuxtConfig({
 	compatibilityDate: '2025-03-06',
 	eslint: {
 		config: {
-						stylistic: true,
+			stylistic: true,
 		},
+	},
+	formkit: {
+		// Experimental support for auto loading (see note):
+		autoImport: true,
 	},
 })
