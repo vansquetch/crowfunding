@@ -15,7 +15,7 @@
 </script>
 
 <template>
-	<div class="grid grid-cols-3 gap-4">
+	<div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
 		<InvestmentCard
 			v-for="project in projects"
 			:key="project.id"

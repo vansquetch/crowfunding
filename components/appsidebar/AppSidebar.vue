@@ -18,7 +18,6 @@
 
 	const { getProject } = useProjects()
 	const route = useRoute()
-	console.log(route.params.project)
 	const { data: project, execute } = await useAsyncData(
 		`project-data`,
 		async () => {

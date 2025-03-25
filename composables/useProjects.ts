@@ -4,6 +4,7 @@ import type {
 	configProject,
 	minMax,
 	productProject,
+	Project,
 } from '~/types/projectTypes'
 
 export const useProjects = () => {
@@ -32,9 +33,19 @@ export const useProjects = () => {
 			}>()
 	}
 
+	const editProject = (project: Project) => {
+		const { id, ...rest } = project
+		return supabase
+			.from('projects')
+			.update(rest)
+			.eq('id', id)
+			.overrideTypes<Project>()
+	}
+
 	return {
 		getProject,
 		getProjectList,
+		editProject,
 	}
 }
 

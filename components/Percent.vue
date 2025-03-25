@@ -3,18 +3,21 @@
 
 	const valueEl = defineModel<number>()
 	const element = useTemplateRef('numeric')
-	const value = ref(valueEl.value)
+	const value = ref((valueEl.value ?? 0) * 100)
 
 	onMounted(() => {
 		const autoNumeric = new AutoNumeric(element.value ?? '', {
 			decimalCharacter: ',',
-			digitGroupSeparator: '.',
-			decimalPlaces: 0,
+			digitGroupSeparator: '',
+			decimalPlaces: 1,
 			emptyInputBehavior: 'zero',
-			currencySymbol: '$',
+			currencySymbol: '%',
+			currencySymbolPlacement: 's',
+			minimumValue: '0',
+			maximumValue: '100',
 		})
 		watch(value, () => {
-			valueEl.value = autoNumeric.getNumber() ?? 0
+			valueEl.value = (autoNumeric.getNumber() ?? 0) / 100
 		})
 	})
 </script>

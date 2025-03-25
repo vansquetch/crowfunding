@@ -6,35 +6,43 @@
 	import type { Project } from '~/types/projectTypes'
 	import { Cop } from '~/util/functions'
 
-	const { data } = defineProps<{
-		data: Project
-	}>()
+	const project = defineModel<Project>()
 
 	const show_gasto_total = ref(false)
 
-	const total_ingreso_min = computed(() =>
-		data.products.reduce((prev, { value, expected, capacity, units }) => {
-			return prev + value.min * expected.min * capacity * units
-		}, 0)
+	const total_ingreso_min = computed(
+		() =>
+			project.value?.products.reduce(
+				(prev, { value, expected, capacity, units }) => {
+					return prev + value.min * expected.min * capacity * units
+				},
+				0
+			) ?? 0
 	)
 
-	const total_ingreso_max = computed(() =>
-		data.products.reduce((prev, { value, expected, capacity, units }) => {
-			return prev + value.max * expected.max * capacity * units
-		}, 0)
+	const total_ingreso_max = computed(
+		() =>
+			project.value?.products.reduce(
+				(prev, { value, expected, capacity, units }) => {
+					return prev + value.max * expected.max * capacity * units
+				},
+				0
+			) ?? 0
 	)
 
-	const gastos_max = computed(() =>
-		data.config.gastos.reduce(
-			(prev, gasto) => prev + gasto.range.max * total_ingreso_max.value,
-			0
-		)
+	const gastos_max = computed(
+		() =>
+			project.value?.config.gastos.reduce(
+				(prev, gasto) => prev + gasto.range.max * total_ingreso_max?.value,
+				0
+			) ?? 0
 	)
-	const gastos_min = computed(() =>
-		data.config.gastos.reduce(
-			(prev, gasto) => prev + gasto.range.min * total_ingreso_min.value,
-			0
-		)
+	const gastos_min = computed(
+		() =>
+			project.value?.config.gastos.reduce(
+				(prev, gasto) => prev + gasto.range.min * total_ingreso_min.value,
+				0
+			) ?? 0
 	)
 
 	const total_libre_min = computed(
@@ -46,34 +54,49 @@
 </script>
 
 <template>
-	<div>
+	<div v-if="project">
 		<h3 class="mb-2 border-b py-2 text-xl font-bold">Proyecciones</h3>
 		<div class="grid grid-cols-2 gap-1 lg:grid-cols-4">
 			<div class="col-span-2 mb-2 p-4">
-				<div v-for="product in data.products" :key="product.name" class="mb-2">
+				<div
+					v-for="product in project.products"
+					:key="product.name"
+					class="mb-2"
+				>
 					<h3 class="mb-2 border-b py-2 font-bold">{{ product.name }}</h3>
 					<div class="grid grid-cols-2 justify-between gap-2">
 						<div>
-							<strong>Unidades</strong>
-							<p>{{ product.units }}</p>
+							<strong>Unidades!</strong>
+							<p>
+								<input v-model="product.units" type="number" class="w-full" />
+							</p>
 						</div>
 						<div>
 							<strong>Precio</strong>
 							<p>
-								{{ Cop.format(product.value.min) }} -
-								{{ Cop.format(product.value.max) }}
+								<Currency v-model="product.value.min" />
+								<Currency v-model="product.value.max" />
 							</p>
 						</div>
 						<div>
 							<strong>Ocupacion</strong>
-							<p>
-								{{ product.expected.min * 100 }}% -
-								{{ product.expected.max * 100 }}%
+							<p class="flex items-center justify-between">
+								<Percent v-model="product.expected.min" class="text-center" />
+								<span>
+									<ArrowUpRight />
+								</span>
+								<Percent v-model="product.expected.max" class="text-center" />
 							</p>
 						</div>
 						<div>
 							<strong>Capacidad</strong>
-							<p>{{ product.capacity }}</p>
+							<p>
+								<input
+									v-model="product.capacity"
+									type="number"
+									class="w-full"
+								/>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -91,17 +114,19 @@
 				</div>
 				<h4 class="mb-2 border-b py-2 font-bold">Gastos</h4>
 				<div v-if="show_gasto_total">
-					<template v-for="gasto in data.config.gastos" :key="gasto.name">
+					<template v-for="gasto in project.config.gastos" :key="gasto.name">
 						<strong class="inline-block">
-							{{ gasto.name }}
+							<input v-model="gasto.name" type="text" />
 						</strong>
 						<div class="flex items-center justify-between gap-2">
 							<span class="w-40 text-right">
 								{{ Cop.format(total_ingreso_min * gasto.range.min) }}
+								<Percent v-model="gasto.range.min" class="text-right" />
 							</span>
 							<ArrowUpRight />
 							<span class="w-40 text-right">
 								{{ Cop.format(total_ingreso_max * gasto.range.max) }}
+								<Percent v-model="gasto.range.max" class="text-right" />
 							</span>
 						</div>
 					</template>
@@ -136,18 +161,20 @@
 				<div class="p-4">
 					<h4 class="mb-2 border-b py-2 font-bold">Utilidad acción</h4>
 					<p class="text-2xl">
-						{{ Cop.format(total_libre_min / data.actions) }}
+						{{ Cop.format(total_libre_min / project.actions) }}
 						<small>
 							({{
-								Math.round(((total_libre_min * 100) / data.value) * 100) / 100
+								Math.round(((total_libre_min * 100) / project.value) * 100) /
+								100
 							}}%)
 						</small>
 					</p>
 					<p class="text-2xl">
-						{{ Cop.format(total_libre_max / data.actions) }}
+						{{ Cop.format(total_libre_max / project.actions) }}
 						<small>
 							({{
-								Math.round(((total_libre_max * 100) / data.value) * 100) / 100
+								Math.round(((total_libre_max * 100) / project.value) * 100) /
+								100
 							}}%)
 						</small>
 					</p>

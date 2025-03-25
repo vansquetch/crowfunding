@@ -6,7 +6,7 @@
 		actions: number
 	}>()
 
-	const dataChart = [
+	const dataChart = ref([
 		{
 			name: 'Acciones compradas',
 			total: props.invertions,
@@ -16,7 +16,7 @@
 			name: 'Acciones disponibles',
 			total: props.actions - props.invertions,
 		},
-	]
+	])
 </script>
 
 <template>
