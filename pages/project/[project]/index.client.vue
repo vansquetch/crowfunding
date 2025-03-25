@@ -55,7 +55,7 @@
 		<div class="overflow-hidden rounded border">
 			<div class="h-52 overflow-hidden">
 				<img
-					src="/img/glamping.webp"
+					:src="project.img ?? ''"
 					alt="Imagen del proyecto"
 					class="object-cover"
 				/>

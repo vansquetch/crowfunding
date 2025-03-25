@@ -15,7 +15,7 @@ export const useProjects = () => {
 		return supabase
 			.from('projects')
 			.select(
-				'id,name, value, actions, invertions, margin, projects_profiles (relation)'
+				'id,name, value, actions, invertions, margin, img, projects_profiles (relation)'
 			)
 			.eq('projects_profiles.profile_id', user.value?.id ?? '')
 	}

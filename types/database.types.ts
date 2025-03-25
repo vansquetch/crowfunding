@@ -35,6 +35,7 @@ export type Database = {
           actions: number
           config: Json
           id: string
+          img: string | null
           invertions: number
           margin: Json
           name: string
@@ -45,6 +46,7 @@ export type Database = {
           actions: number
           config?: Json
           id?: string
+          img?: string | null
           invertions?: number
           margin?: Json
           name: string
@@ -55,6 +57,7 @@ export type Database = {
           actions?: number
           config?: Json
           id?: string
+          img?: string | null
           invertions?: number
           margin?: Json
           name?: string

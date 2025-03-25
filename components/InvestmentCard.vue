@@ -14,7 +14,7 @@
 			<div
 				class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-300"
 			>
-				<img src="/img/glamping.jpeg" alt="Logo" class="" />
+				<img :src="project.img ?? ''" alt="Logo" class="" />
 			</div>
 			<div>
 				<h2 class="text-xl text-blue-900">{{ project.name }}</h2>
@@ -24,7 +24,7 @@
 		<!-- Property Image -->
 		<div class="h-52 overflow-hidden">
 			<img
-				src="/img/glamping.jpeg"
+				:src="project.img ?? ''"
 				alt="Property"
 				class="h-full w-full object-cover"
 			/>
@@ -79,16 +79,12 @@
 						{{ Cop.format(project.value / project.actions) }}
 					</p>
 				</div>
-				<div class="term">
-					<p class="term-label">Plazo:</p>
-					<p class="term-value">Entre 3 y 19 meses</p>
-				</div>
 			</div>
 
 			<!-- Action Button -->
-			<NuxtLink :to="`/project/${project.id}`">
+			<a :href="`project/${project.id}`">
 				<button class="action-button">Ver más</button>
-			</NuxtLink>
+			</a>
 		</div>
 	</div>
 </template>
